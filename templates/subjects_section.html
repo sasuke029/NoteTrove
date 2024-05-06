@@ -1,0 +1,62 @@
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .btn--linked {
+    border-radius: 0;
+    padding: 0;
+    color: var(--color-main);
+    box-shadow: none;
+  }
+  
+  .btn--linked:hover {
+    text-decoration: underline;
+    color:rgb(47, 255, 120);
+  }
+</style>
+<body>
+
+ <div class="container">
+            <!-- Topics Start -->
+
+                <div class="topics">
+            {%if request.user.is_authenticated %}
+            <h2>Hello {{request.user}}</h2>
+            {%else%}
+            {%endif%}
+           <div class="topics__header">
+            <h2>Browse Subjects</h2>
+           </div>
+         
+          <ul class="topics__list">
+            <li>
+              <a href="{%url 'home'%}" class="active">All <span>{{topics.count}}</span></a>
+            </li>
+            {%for topic in topics%}
+            <li>
+            <a href="{%url 'home'%}?q={{topic.name}}">{{topic.name}}<span>{{topic.room_set.all.count}}</span></a>
+            </li>
+           
+            {%endfor%}
+
+          </ul>
+         
+          <a class="btn btn--linked" href="{% url 'topics' %}">
+            More
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+              <title>chevron-down</title>
+              <path d="M16 21l-13-13h-3l16 16 16-16h-3l-13 13z"></path>
+            </svg>
+          </a>
+         </div>
+      </div>
+
+    </body>
+    </html>
+                {% endblock content %}
+        <!-- Topics End -->

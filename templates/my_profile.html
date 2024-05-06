@@ -1,0 +1,57 @@
+{% include 'navbar.html'%}
+{%block title%}Customer Profile{%endblock%}
+{%block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<style>
+    .table{
+        color: white;
+    }
+</style>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Customer Profile</h3><hr>
+            <p><span class="font-weight-bold">Full Name:</span> {{customer.name}}</p>
+            <p><span class="font-weight-bold">Address:</span> {{shipping.address}}</p>
+            <p><span class="font-weight-bold">Email:</span> {{customer.email}}</p>
+        </div>
+        <div class="col-md-8">
+            <h3>Previous Order</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>OrderID</th>
+                        <th>Amount</th>
+                        <th>Order On</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for item in previous_orders%}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td><a href="{% url 'customerorderdetail' item.id%}">#ORDER_{{item.id}}</a></td>
+                        <td>Rs.{{item.get_cart_total}}</td>
+                        <td>{{item.updated_ordered | timesince}} ago</td>
+                        <td>{{item.order_status}}</td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+{%endblock%}

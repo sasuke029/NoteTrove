@@ -1,0 +1,66 @@
+{%include 'navbar.html'%}
+
+{%block content%}
+{%load static %}
+<!DOCTYPE html>
+<html>
+<style>
+    .containers{
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+</style>
+<link rel="stylesheet" href="{%static 'styles/book_sections.css'%}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<body>
+<div class="containers">
+  
+
+ <div>
+            <!-- Topics Start -->
+
+    <div class="topics">
+            {%if request.user.is_authenticated %}
+            <h2>Hello {{request.user}}</h2>
+            {%else%}
+            {%endif%}
+           <div class="topics__header">
+            <h2>Browse Departments</h2>
+           </div>
+         
+          <ul class="topics__list">
+         
+            {%for department in departments%}
+            <li>
+              <a href="{% url 'catagories' %}?q={{ department.name }}">{{ department.name }}<span>{{department.room_set.all.count}}</span></a>
+            </li>
+           
+            {%endfor%}      
+
+
+          </ul>
+         
+          <a class="btn btn--link" href="topics.html">
+            More
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+              <title>chevron-down</title>
+              <path d="M16 21l-13-13h-3l16 16 16-16h-3l-13 13z"></path>
+            </svg>
+          </a>
+         </div>
+   </div>
+
+      <div>
+        {% include 'book_section.html'%}
+      </div>
+
+
+      <div></div>
+      
+  </div>
+               
+        <!-- Topics End -->
+    </body>
+        </html>
+        {% endblock content %}

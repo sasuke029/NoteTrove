@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Catagories</title>
+</head>
+<body>
+   
+<section class="home-category_tiles_block_component__root">
+  <div class="home-category_tiles_block_component__wrapper">
+    <div class="home-category_tiles_block_component__tiles">
+     
+         
+          {% for room in rooms %}
+
+          <div class="home-category_tile_component__root">
+            {%if request.user == room.host %}
+            <a class="home-category_tile_component__tileDelete" title="Delete" href="{% url 'delete_room' room.id %}">
+            <i class="fa-regular fa-circle-xmark"></i>
+            </a>
+          {%endif%}
+          <div class="home-category_tile_component__tileDetail">
+            <h2>
+              <a class="home-category_tile_component__tileTitle" title="" data-action="analytics-event#send" data-analytics-event="{&quot;eventLabel&quot;:&quot;blogging: link&quot;,&quot;eventAction&quot;:&quot;click;link&quot;,&quot;hitType&quot;:&quot;event&quot;,&quot;eventCategory&quot;:&quot;Block interaction;Category&quot;}" href="{% url 'download_section' room.id %}">{{room.topic.name}}</a>
+            </h2>
+        
+            <p class="home-category_tile_component__tileSubtitle">{{room.description}}</p>
+        
+            <a class="home-category_tile_component__tileLink" title="" data-action="analytics-event#send" data-analytics-event="{&quot;eventLabel&quot;:&quot;blogging: newest&quot;,&quot;eventAction&quot;:&quot;click;link&quot;,&quot;hitType&quot;:&quot;event&quot;,&quot;eventCategory&quot;:&quot;Block interaction;Category&quot;}" href="{%url 'profile' room.host.id%}">{{room.name}}</a>
+          </div>
+        
+          <a class="home-category_tile_component__tileArt" title="" data-action="analytics-event#send" data-analytics-event="{&quot;eventLabel&quot;:&quot;blogging: image&quot;,&quot;eventAction&quot;:&quot;click;link&quot;,&quot;hitType&quot;:&quot;event&quot;,&quot;eventCategory&quot;:&quot;Block interaction;Category&quot;}" href="{% url 'download_section' room.id %}">
+            <div class="home-category_tile_component__imageIconWrapper">
+              <picture class="home-category_tile_component__imageWrapper">
+                <source srcset="" type="image/avif">
+              
+                <img src="{{room.avatar.url}}" alt="image" loading="lazy" width="345" height="175" class="home-category_tile_component__tileImage">
+              </picture>
+        
+            
+            </div>
+            </a>
+        </div>
+                       {%endfor%}
+
+    <div class="home-category_tiles_block_component__cta">
+      <a rel="stylesheet" class="shared-cta_button_component__root shared-cta_button_component__large" data-action="analytics-event#send" data-analytics-event="{&quot;hitType&quot;:&quot;event&quot;,&quot;eventCategory&quot;:&quot;Block interaction;Category Tiles&quot;,&quot;eventAction&quot;:&quot;click;button&quot;,&quot;eventLabel&quot;:&quot;View all categories&quot;}" href="{%url 'catagories'%}">View all categories</a>
+</div>
+    </div>
+  </div>
+</section>
+</body>
+</html>

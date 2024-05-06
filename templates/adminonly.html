@@ -1,0 +1,44 @@
+{% block content %}
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Only</title>
+</head>
+<style>
+    .table{
+        color: white;
+    }
+</style>
+<body>
+    <div class="col-md-8">
+        <h3>All Order</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>SN</th>
+                    <th>OrderID</th>
+                    <th>Amount</th>
+                    <th>Order On</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td><a href="{% url 'admin_orderitem' order.id%}">#ORDER_{{ order.id }}</a></td>
+                    <td>Rs.{{ order.get_cart_total }}</td>
+                    <td>{{ order.date_ordered | timesince }} ago</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% include 'navbar.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User-Profile</title>
+</head>
+<body>
+  <style>
+    .icons {
+      /* top: 223%; */
+      bottom: 29%;
+      /* padding: 23px; */
+      width: fit-content;
+      left: 95%;
+      position: relative;
+  }
+  .home-category_tile_component__tileEdit{
+    padding-right: 10px;
+  }
+  .home-category_tile_component__tileDetail {
+    color: var(--color-ui--grey-20);
+    font-size: var(--font-size--body-m);
+    margin-top: -25px;
+    text-align: center
+}
+  .home-category_tile_component__tileTitle {
+    color: var(--color-ui--grey-20);
+    font-size: var(--font-size--h2);
+    font-weight: var(--font-weight--bold);
+    text-decoration: none;
+    top:-20px;
+    position: relative;
+}
+  .home-category_tile_component__tileImage {
+      align-self: center;
+      border: 4px solid var(--color-ui--white);
+      border-radius: 8px 8px 0 0;
+      box-shadow: 0 20.83px 22.92px rgba(0,0,0,.34);
+      height: auto;
+      max-width: 89%;
+      max-height: 171px;
+      transition: border-color .2s;
+      width: 500px
+  }
+  .home-category_tile_component__tileSubtitle {
+      margin: var(--spacing--s) 0 var(--spacing--xs);
+      position:relative;
+      top: -44px;
+  }
+  .home-category_tile_component__imageWrapper {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      top:-24px;
+  }
+  .home-category_tile_component__root {
+      background: hsla(0,0%,100%,.5);
+      border-radius: 8px;
+      display: flex;
+      width:60%;
+      line-height: 53px;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      padding: calc(var(--spacing--l)*2);
+      padding-bottom: 40%;
+      position: relative;
+      transition: background .2s;
+  }
+    .containers{
+      display: grid;
+      grid-template-columns: 1fr 3fr 1fr;
+    }
+    .profile{
+      margin-left:18em ;
+    }
+  </style>
+  
+
+<main class="profile-page layout layout--3">
+  <div class="containers">
+    <div>
+    <!-- Topics Start -->
+    {% include 'subjects_section.html' %}
+    <!-- Topics End -->
+    </div>
+
+    <!-- Room List Start -->
+    <div class="roomList">
+      <div class="profile">
+        <div class="profile__avatar">
+          <div class="avatar avatar--large active">
+            <img src="{{user.customer.avatar.url}}" />
+          </div>
+        </div>
+        <div class="profile__info">
+          <h3>{{customer_name}}</h3>
+          <p>@{{user.username}}</p>
+          {% if request.user == user %}
+          
+          <a href="{% url 'update_profile' %}" class="btn btn--main btn--pill">Edit Profile</a>
+         {% endif %}
+        </div>
+        
+      </div>
+
+      <div class="roomList__header">
+        <div>
+          <h2>Study Rooms Hosted by {{customer_name}}</a>
+          </h2>
+        </div>
+      </div>
+      {% include 'book_section.html' %}
+
+
+    </div>
+    <!-- Room List End -->
+     <div>
+  
+    </div>
+  </div>
+</main>
+</body>
+</html>
+{% endblock content %}

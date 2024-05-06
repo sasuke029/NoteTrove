@@ -1,0 +1,145 @@
+{%block content%}
+{%load static%}
+<link rel="stylesheet" href="{%static 'styles/book_sections.css'%}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+  .icons {
+    /* top: 223%; */
+    bottom: 29%;
+    /* padding: 23px; */
+    width: fit-content;
+    left: 95%;
+    position: relative;
+}
+.home-category_tile_component__tileEdit{
+  padding-right: 10px;
+}
+.home-category_tile_component__tileDetail {
+    color: var(--color-ui--grey-20);
+    font-size: var(--font-size--body-m);
+    margin-top: -20px;
+    text-align: center
+}
+.home-category_tile_component__tileTitle {
+    color: var(--color-ui--grey-20);
+    font-size: var(--font-size--h2);
+    font-weight: var(--font-weight--bold);
+    text-decoration: none;
+    top:-20px;
+    position: relative;
+}
+.home-category_tile_component__tileImage {
+    align-self: center;
+    border: 4px solid var(--color-ui--white);
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 20.83px 22.92px rgba(0,0,0,.34);
+    height: auto;
+    max-width: 89%;
+    max-height: 171px;
+    transition: border-color .2s;
+    width: 500px
+}
+.home-category_tile_component__tileSubtitle {
+    margin: var(--spacing--s) 0 var(--spacing--xs);
+    position:relative;
+    top: -44px;
+}
+.home-category_tile_component__imageWrapper {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top:-24px;
+}
+.home-category_tile_component__root {
+    background: hsla(0,0%,100%,.5);
+    border-radius: 8px;
+    display: flex;
+    width:60%;
+    line-height: 53px;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: calc(var(--spacing--l)*2);
+    padding-bottom: 40%;
+    position: relative;
+    transition: background .2s;
+}
+</style>
+<body>
+  <div class="roomList__header">
+    <div>
+      <h2>Notes</h2>
+      <p>{{rooms_count}} Notes available</p>
+    </div>
+    {% if request.user == user %}
+    <a class="btn btn--main" href="{%url 'create-note'%}">
+     
+
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+        <title>add</title>
+        <path d="M16.943 0.943h-1.885v14.115h-14.115v1.885h14.115v14.115h1.885v-14.115h14.115v-1.885h-14.115v-14.115z">
+        </path>
+      </svg>
+      Upload Notes
+    </a>
+    {% endif %}
+  </div>
+  
+    
+<section class="home-category_tiles_block_component__root">
+    <div class="home-category_tiles_block_component__wrapper">
+      <div class="home-category_tiles_block_component__tiles">
+       
+           
+            {% for room in rooms %}
+  
+          <div class="home-category_tile_component__root">
+            <div class="icons">
+              {%if request.user == room.host %}
+              <a class="home-category_tile_component__tileEdit" title="Edit" href="{% url 'update_room' room.id %}">
+              <i class="fa-solid fa-pen-to-square"></i>
+              </a>
+              <a class="home-category_tile_component__tileDelete" title="Delete" href="{% url 'delete_room' room.id %}">
+              <i class="fa-regular fa-circle-xmark"></i>
+              </a>
+            {%endif%}
+            </div>
+            <div class="home-category_tile_component__tileDetail">
+              <h2>
+                <a class="home-category_tile_component__tileTitle" title="" data-action="analytics-event#send" data-analytics-event="{&quot;eventLabel&quot;:&quot;blogging: link&quot;,&quot;eventAction&quot;:&quot;click;link&quot;,&quot;hitType&quot;:&quot;event&quot;,&quot;eventCategory&quot;:&quot;Block interaction;Category&quot;}" href="{% url 'download_section' room.id %}">{{room.topic.name}}</a>
+              </h2>
+          
+             <a  href="{% url 'profile' room.host.id%}"> <p class="home-category_tile_component__tileSubtitle" >{{room.host.customer.name }}</p></a>
+          
+            </div>
+          
+            <a class="home-category_tile_component__tileArt" title="" data-action="analytics-event#send" data-analytics-event="{&quot;eventLabel&quot;:&quot;blogging: image&quot;,&quot;eventAction&quot;:&quot;click;link&quot;,&quot;hitType&quot;:&quot;event&quot;,&quot;eventCategory&quot;:&quot;Block interaction;Category&quot;}" href="{% url 'download_section' room.id %}">
+              <div class="home-category_tile_component__imageIconWrapper">
+                <picture class="home-category_tile_component__imageWrapper">
+                  <source srcset="" type="image/avif">
+                
+                  <img src="{{room.avatar.url}}" alt="image" loading="lazy" width="345" height="175" class="home-category_tile_component__tileImage">
+                </picture>
+          
+              
+              </div>
+              </a>
+          </div>
+                         {%endfor%}
+  
+      <div class="home-category_tiles_block_component__cta">
+        <a rel="stylesheet" class="shared-cta_button_component__root shared-cta_button_component__large" data-action="analytics-event#send" data-analytics-event="{&quot;hitType&quot;:&quot;event&quot;,&quot;eventCategory&quot;:&quot;Block interaction;Category Tiles&quot;,&quot;eventAction&quot;:&quot;click;button&quot;,&quot;eventLabel&quot;:&quot;View all categories&quot;}" href="{%url 'catagories'%}">View all categories</a>
+  </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
+{%endblock content%}
